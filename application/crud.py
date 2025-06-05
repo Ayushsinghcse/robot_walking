@@ -1,4 +1,3 @@
-# Replace the relative import with absolute imports
 from application.models import Trajectory
 from application.schemas import TrajectoryCreate, TrajectoryResponse
 import logging

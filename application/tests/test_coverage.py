@@ -57,14 +57,11 @@ def test_obstacle_path_comparison():
     planner_no_obs = CoveragePlanner(wall_width=5.0, wall_height=5.0)
     path_no_obs = planner_no_obs.generate_path()
     
-    # Wall with obstacle
     obstacles = [Obstacle(x=1.0, y=1.0, width=0.25, height=0.25)]
     planner_with_obs = CoveragePlanner(wall_width=5.0, wall_height=5.0, obstacles=obstacles)
     path_with_obs = planner_with_obs.generate_path()
     
-    # With obstacles should take longer
     assert path_with_obs["time"] > path_no_obs["time"]
-    # With obstacles should have more path points
     assert len(path_with_obs["path"]) > len(path_no_obs["path"])
 
 def test_is_point_in_obstacle():
@@ -72,14 +69,8 @@ def test_is_point_in_obstacle():
     obstacles = [Obstacle(x=1.0, y=1.0, width=1.0, height=1.0)]
     planner = CoveragePlanner(wall_width=5.0, wall_height=5.0, obstacles=obstacles)
     
-    # Inside obstacle
     assert planner.is_point_in_obstacle(1.5, 1.5)
-    # Outside obstacle
     assert not planner.is_point_in_obstacle(0.5, 0.5)
-    # On edges
     assert planner.is_point_in_obstacle(1.0, 1.0)
     assert planner.is_point_in_obstacle(2.0, 2.0)
-    # Just outside
     assert not planner.is_point_in_obstacle(2.01, 2.01)
-    # With safety margin (if implemented)
-    # assert planner.is_point_in_obstacle(0.96, 0.96)  # If using 0.05 safety margin

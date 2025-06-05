@@ -23,7 +23,7 @@ def create_trajectory(
         )
         path_data = planner.generate_path()
         
-        # Store in database
+        # database storage
         db_trajectory = crud.create_trajectory(db, trajectory, path_data)
         return db_trajectory
     except Exception as e:

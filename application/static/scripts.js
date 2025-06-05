@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function() {
             ctx.lineWidth = 1;
             ctx.stroke();
             
-            // Draw traveled path in blue if animating
+            // Draw traveled path in blue if animating --gpt
             if (currentPoint) {
                 const currentIndex = path.findIndex(p => 
                     p.x === currentPoint.x && p.y === currentPoint.y
@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     ctx.stroke();
                 }
                 
-                // Draw current position as a circle
+                // current position as a circle drawing -- source gpt
                 ctx.beginPath();
                 ctx.arc(
                     offsetX + currentPoint.x * scale,
@@ -232,7 +232,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Load previous trajectories
+    // previous trajectories loding it 
     async function loadTrajectories() {
         try {
             const response = await fetch('/api/trajectories/');
@@ -265,6 +265,5 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Initial load
     loadTrajectories();
 });

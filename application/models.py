@@ -7,6 +7,6 @@ class Trajectory(Base):
     id = Column(Integer, primary_key=True, index=True)
     wall_width = Column(Float)
     wall_height = Column(Float)
-    obstacles = Column(JSON)  # List of obstacle dicts: {x, y, width, height}
-    trajectory = Column(JSON)  # List of points: [{x, y}, ...]
+    obstacles = Column(JSON) 
+    trajectory = Column(JSON) 
     coverage_time = Column(Float)

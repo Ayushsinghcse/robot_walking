@@ -24,31 +24,26 @@ class CoveragePlanner:
     def line_intersects_obstacle(self, start: Tuple[float, float], end: Tuple[float, float], 
                                obstacle: Obstacle) -> bool:
         """Check if a line segment intersects with an obstacle"""
-        # Simple bounding box intersection check
         rect_left = obstacle.x
         rect_right = obstacle.x + obstacle.width
         rect_top = obstacle.y
         rect_bottom = obstacle.y + obstacle.height
         
-        # Check if either point is inside the obstacle
         if self.is_point_in_obstacle(start[0], start[1]) or self.is_point_in_obstacle(end[0], end[1]):
             return True
-            
-        # Check line segment intersection with rectangle edges
-        # (This is a simplified version - a complete implementation would use proper line-rectangle intersection)
+
         return False
     
     def calculate_detour_distance(self, obstacle: Obstacle, current_y: float) -> float:
         """Calculate additional distance needed to go around an obstacle"""
-        # Go up and over the obstacle
-        detour_height = self.tool_width * 2  # Go up and back down
-        return (obstacle.width + detour_height) * 2  # Extra distance for going around
+        detour_height = self.tool_width * 2
+        return (obstacle.width + detour_height) * 2 
     
     def generate_path(self) -> Dict:
         """Generate a boustrophedon path for wall coverage with obstacle avoidance"""
         path = []
         current_y = 0
-        direction = 1  # 1 for right, -1 for left
+        direction = 1  
         coverage_time = 0
         total_distance = 0
         
@@ -63,20 +58,17 @@ class CoveragePlanner:
             start_point = (start_x, current_y)
             end_point = (end_x, current_y)
             
-            # Check for obstacles in this row
             row_obstacles = [
                 obs for obs in self.obstacles
                 if obs.y <= current_y <= obs.y + obs.height
             ]
             
             if not row_obstacles:
-                # No obstacles in this row - straight path
                 path.append({"x": start_x, "y": current_y})
                 path.append({"x": end_x, "y": current_y})
                 distance = abs(end_x - start_x)
                 total_distance += distance
             else:
-                # Handle obstacles in this row
                 path.append({"x": start_x, "y": current_y})
                 
                 for obstacle in sorted(row_obstacles, key=lambda o: o.x if direction == 1 else -o.x):
@@ -91,7 +83,6 @@ class CoveragePlanner:
                         path.append({"x": obstacle.x + obstacle.width, "y": current_y + self.tool_width})
                         path.append({"x": obstacle.x + obstacle.width, "y": current_y})
                     else:
-                        # Left-moving pass
                         path.append({"x": obstacle.x + obstacle.width, "y": current_y})
                         path.append({"x": obstacle.x + obstacle.width, "y": current_y + self.tool_width})
                         path.append({"x": obstacle.x, "y": current_y + self.tool_width})
@@ -100,11 +91,9 @@ class CoveragePlanner:
                 path.append({"x": end_x, "y": current_y})
                 total_distance += abs(end_x - start_x)
             
-            # Move to next row
             current_y += self.tool_width
             direction *= -1
-        
-        # Calculate coverage time based on total distance
+
         coverage_time = total_distance / self.robot_speed
         
         logger.info(

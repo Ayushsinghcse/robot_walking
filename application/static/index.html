@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wall Robot Visualization</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Autonomous Wall-Finishing Robot</h1>
+        
+        <div class="input-section">
+            <h2>Wall Parameters</h2>
+            <div class="form-group">
+                <label for="wallWidth">Width (m):</label>
+                <input type="number" id="wallWidth" value="5" step="0.1" min="0.1">
+            </div>
+            <div class="form-group">
+                <label for="wallHeight">Height (m):</label>
+                <input type="number" id="wallHeight" value="5" step="0.1" min="0.1">
+            </div>
+            
+            <h3>Obstacles</h3>
+            <div id="obstacles-container">
+                <div class="obstacle">
+                    <div class="form-group">
+                        <label>X (m):</label>
+                        <input type="number" class="obs-x" value="1" step="0.1" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Y (m):</label>
+                        <input type="number" class="obs-y" value="1" step="0.1" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Width (m):</label>
+                        <input type="number" class="obs-width" value="0.25" step="0.01" min="0.1">
+                    </div>
+                    <div class="form-group">
+                        <label>Height (m):</label>
+                        <input type="number" class="obs-height" value="0.25" step="0.01" min="0.1">
+                    </div>
+                    <button class="remove-obstacle">Remove</button>
+                </div>
+            </div>
+            <button id="add-obstacle">Add Obstacle</button>
+            <button id="calculate-path">Calculate Path</button>
+        </div>
+        
+        <div class="visualization-section">
+            <h2>Path Visualization</h2>
+            <canvas id="wallCanvas" width="500" height="500"></canvas>
+            <div class="controls">
+                <button id="play-path">Play Path</button>
+                <button id="stop-path" disabled>Stop</button>
+                <span id="time-display">Coverage Time: 0s</span>
+            </div>
+        </div>
+        
+        <div class="history-section">
+            <h2>Previous Trajectories</h2>
+            <div id="trajectory-list"></div>
+        </div>
+    </div>
+    
+    <script src="/static/scripts.js"></script>
+</body>
+</html>

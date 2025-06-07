@@ -24,3 +24,4 @@ This project provides a backend system for an autonomous wall-finishing robot, i
 Start the FastAPI server:
 ```bash
 uvicorn application.main:app --reload
+[Watch demo video](https://drive.google.com/file/d/1bPSYQn7kLsT8d4uBvrBaFzBOi7Y7WcfP/view?usp=drive_link)
